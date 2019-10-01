@@ -5,6 +5,9 @@ import br.com.faculdadedelta.bibliotecaapi.repository.AutorRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,8 +45,8 @@ public class AutorService {
         autorRepository.deleteById (id);
     }
 
-    public List<Autor> listar(){
+    public Page<Autor> listar(int page, int size, Sort sort){
 
-        return autorRepository.findAll ();
+        return autorRepository.findAll (PageRequest.of(page, size, sort));
     }
 }

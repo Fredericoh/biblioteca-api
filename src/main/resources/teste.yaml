@@ -1,0 +1,9 @@
+components:
+  securitySchemes:
+    oAuthSample:    # <---- arbitrary name
+      type: oauth2
+      description: See http://localhost:8080/oauth2.html
+      flows:
+        clientCredentials:
+          tokenUrl: http://localhost:8080/oauth/token
+          scopes: {}

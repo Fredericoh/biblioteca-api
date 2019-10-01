@@ -23,6 +23,6 @@ public class Autor {
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "O campo sexo é obrigatorio.")
+//    @NotNull(message = "O campo sexo é obrigatorio.")
     private Sexo sexo;
 }

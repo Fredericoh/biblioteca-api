@@ -5,6 +5,7 @@ import br.com.faculdadedelta.bibliotecaapi.service.LivroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,6 +23,7 @@ public class LivroResource {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ROLE_INCLUIR_LIVRO')")
     public Livro inserir(@RequestBody @Valid Livro livro, HttpServletResponse response){
 
         Livro livroSalvo = livroService.inserir (livro);
@@ -39,6 +41,7 @@ public class LivroResource {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ROLE_LISTAR_LIVRO')")
     public List<Livro> listar(){
 
         return livroService.listar ();
@@ -46,6 +49,7 @@ public class LivroResource {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_POR_ID_LIVRO')")
     public Livro pesquisarPorId(@PathVariable("id") Long id){
 
         return livroService.pesquisarPorId (id);
@@ -53,6 +57,7 @@ public class LivroResource {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ROLE_ALTERAR_LIVRO')")
     public Livro alterar(@RequestBody @Valid Livro livro, @PathVariable Long id){
 
         return livroService.alterar (livro, id);
@@ -60,6 +65,7 @@ public class LivroResource {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ROLE_EXCLUIR_LIVRO')")
     public void remover(@PathVariable Long id){
 
         livroService.excluir (id);

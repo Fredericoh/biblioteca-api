@@ -5,6 +5,7 @@ import br.com.faculdadedelta.bibliotecaapi.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,6 +23,7 @@ public class EnderecoResource {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ROLE_INCLUIR_ENDERECO')")
     public Endereco inserir(@RequestBody @Valid Endereco endereco, HttpServletResponse response){
 
         Endereco enderecoSalvo = enderecoService.inserir (endereco);
@@ -39,6 +41,7 @@ public class EnderecoResource {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ROLE_LISTAR_ENDERECO')")
     public List<Endereco> listar(){
 
         return enderecoService.listar ();
@@ -46,6 +49,7 @@ public class EnderecoResource {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_POR_ID_ENDERECO')")
     public Endereco pesquisarPorId(@PathVariable("id") Long id){
 
         return enderecoService.pesquisarPorId (id);
@@ -53,6 +57,7 @@ public class EnderecoResource {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ROLE_ALTERAR_ENDERECO')")
     public Endereco alterar(@RequestBody @Valid Endereco endereco, @PathVariable Long id){
 
         return enderecoService.alterar (endereco, id);
@@ -60,6 +65,7 @@ public class EnderecoResource {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ROLE_EXCLUIR_ENDERECO')")
     public void remover(@PathVariable Long id){
 
         enderecoService.excluir (id);
